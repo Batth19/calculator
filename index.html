@@ -10,87 +10,146 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: #f9f9f9;
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+            color: #333;
         }
-
+    
         .container {
-            width: 80%;
-            max-width: 500px;
-            margin: 2rem auto;
+            width: 90%;
+            max-width: 600px;
+            margin: 3rem auto;
             padding: 2rem;
             background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            color: #333333;
-            margin-bottom: 1rem;
         }
-
+    
+        .header {
+            margin-bottom: 2rem;
+        }
+    
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 0.5rem;
+        }
+    
+        p {
+            font-size: 1rem;
+            color: #666;
+        }
+    
         form {
             display: flex;
             flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
         }
-
+    
         label {
             font-size: 1rem;
-            color: #555555;
-            margin: 0.5rem 0 0.2rem;
+            font-weight: bold;
+            color: #444;
         }
-
+    
         input,
-        select,
-        button {
-            padding: 0.5rem;
+        select {
+            width: 100%;
+            padding: 0.8rem;
             font-size: 1rem;
-            border: 1px solid #cccccc;
-            border-radius: 5px;
-            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
             box-sizing: border-box;
+            transition: all 0.3s ease;
         }
-
+    
         input:focus,
         select:focus {
             outline: none;
             border-color: #007bff;
-            box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
         }
-
+    
         button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
             background: #007bff;
             color: white;
             border: none;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
-
+    
         button:hover {
             background: #0056b3;
         }
-
+        .button-group {
+            margin-left:0.7rem;
+            display: flex;
+            gap: 23rem;
+            justify-content: center;
+        }
+    
         .result {
-            text-align: center;
             font-size: 1.2rem;
-            color: #333333;
-            margin-top: 1rem;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+    
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+            text-align: center;
+        }
+    
+        .footer strong {
+            color: #444;
+        }
+    
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+    
+            h1 {
+                font-size: 2rem;
+            }
+    
+            form {
+                gap: 0.8rem;
+            }
+    
+            button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
+    
 </head>
-
 <body>
     <div class="container">
-        <h1>Calculator</h1>
+        <div class="header">    
+            <h1>Enhanced Calculator</h1>
+            <p>Perform operations quickly and efficiently!</p>
+        </div>
+
         <form id="calculatorForm">
-            <label for="firstNumber">First Number (a):</label>
+            <label for="firstNumber">Enter First Number:</label>
             <input type="number" id="firstNumber" required />
 
-            <label for="secondNumber">Second Number (b):</label>
+            <label for="secondNumber">Enter Second Number:</label>
             <input type="number" id="secondNumber" required />
 
             <label for="operation">Choose Operation:</label>
             <select id="operation" required>
+                <option value="none">None</option>
                 <option value="add">Add</option>
                 <option value="subtract">Subtract</option>
                 <option value="multiply">Multiply</option>
@@ -98,15 +157,23 @@
                 <option value="exponentiate">Exponentiate</option>
             </select>
 
-            <button type="submit">Calculate</button>
+            <div class="button-group">
+                <button type="submit">Calculate</button>
+                <button type="button" id="clearButton">Clear</button>
+            </div>
         </form>
 
         <div class="result" id="result"></div>
     </div>
 
+    <div class="footer">
+        <p>Powered by <strong>Modern Web Design</strong></p>
+    </div>
+
     <script>
         const form = document.getElementById('calculatorForm');
         const resultDiv = document.getElementById('result');
+        const clearButton = document.getElementById('clearButton');
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
@@ -139,8 +206,15 @@
                     result = 'Invalid operation.';
             }
 
-            // Display the result
+            
             resultDiv.textContent = `Result: ${result}`;
+        });
+
+        clearButton.addEventListener('click', function () {
+            document.getElementById('firstNumber').value = '';
+            document.getElementById('secondNumber').value = '';
+            document.getElementById('operation').value = 'add';
+            resultDiv.textContent = '';
         });
     </script>
 </body>
